@@ -1,0 +1,30 @@
+#include <stdio.h>
+#define N 50000000
+int fact(int bit[N],int n){
+	int i,j,k=N-1,carry;
+	bit[k]=1;
+	for (i=2;i<=n;i++){
+		carry=0;
+		for (j=N-1;j>=k;j--){
+			bit[j]=bit[j]*i+carry;
+			carry=bit[j]/10;
+			bit[j]=bit[j]%10;
+			if (j==k&&carry)
+			k--;
+		}
+	}
+	return k;
+} 
+int main(){
+	static int bit[N]={0};
+	int i,k,n;
+	printf("请输入一个不超过十万的自然数，计算它的阶乘：") ;
+	scanf("%d",&n);
+	k=fact(bit , n);
+	printf("%d!=",n);
+	for (i=k;i<N;i++)
+		printf("%d",bit[i]);
+	printf("\n");
+	printf("%d!是一个%d位数。\n",n,N-k);
+	return 0; 
+}
